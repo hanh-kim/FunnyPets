@@ -1,10 +1,7 @@
 package com.hpk.funnypet
 
 import android.app.Application
-import com.hpk.funnypet.di.apiModule
-import com.hpk.funnypet.di.repositoryModule
-import com.hpk.funnypet.di.retrofitModule
-import com.hpk.funnypet.di.viewModelModule
+import com.hpk.funnypet.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -24,7 +21,7 @@ class AndroidApplication : Application() {
             androidContext(this@AndroidApplication)
             // moduleが増えたらlistに追加
             modules(
-                listOf(retrofitModule,apiModule, viewModelModule, repositoryModule,)
+                listOf(retrofitModule,apiModule, viewModelModule, repositoryModule, useCaseModule)
             )
         }
     }

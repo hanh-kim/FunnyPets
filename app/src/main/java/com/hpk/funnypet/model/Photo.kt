@@ -1,0 +1,100 @@
+package com.hpk.funnypet.model
+
+
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
+data class Photo(
+    @Json(name = "date_faved")
+    val dateFaved: String?,
+    @Json(name = "farm")
+    val farm: Int?,
+    @Json(name = "height_c")
+    val heightC: Int?,
+    @Json(name = "height_l")
+    val heightL: Int?,
+    @Json(name = "height_m")
+    val heightM: Int?,
+    @Json(name = "height_n")
+    val heightN: Int?,
+    @Json(name = "height_o")
+    val heightO: Int?,
+    @Json(name = "height_q")
+    val heightQ: Int?,
+    @Json(name = "height_s")
+    val heightS: Int?,
+    @Json(name = "height_sq")
+    val heightSq: Int?,
+    @Json(name = "height_t")
+    val heightT: Int?,
+    @Json(name = "height_z")
+    val heightZ: Int?,
+    @Json(name = "id")
+    val id: String?,
+    @Json(name = "isfamily")
+    val isFamily: Int?,
+    @Json(name = "isfriend")
+    val isFriend: Int?,
+    @Json(name = "ispublic")
+    val isPublic: Int?,
+    @Json(name = "media")
+    val media: String?,
+    @Json(name = "media_status")
+    val mediaStatus: String?,
+    @Json(name = "owner")
+    val owner: String?,
+    @Json(name = "secret")
+    val secret: String?,
+    @Json(name = "server")
+    val server: String?,
+    @Json(name = "title")
+    val title: String?,
+    @Json(name = "url_c")
+    val urlC: String?,
+    @Json(name = "url_l")
+    val urlL: String?,
+    @Json(name = "url_m")
+    val urlM: String?,
+    @Json(name = "url_n")
+    val urlN: String?,
+    @Json(name = "url_o")
+    val urlO: String?,
+    @Json(name = "url_q")
+    val urlQ: String?,
+    @Json(name = "url_s")
+    val urlS: String?,
+    @Json(name = "url_sq")
+    val urlSq: String?,
+    @Json(name = "url_t")
+    val urlT: String?,
+    @Json(name = "url_z")
+    val urlZ: String?,
+    @Json(name = "views")
+    val views: String?,
+    @Json(name = "width_c")
+    val widthC: Int?,
+    @Json(name = "width_l")
+    val widthL: Int?,
+    @Json(name = "width_m")
+    val widthM: Int?,
+    @Json(name = "width_n")
+    val widthN: Int?,
+    @Json(name = "width_o")
+    val widthO: Int?,
+    @Json(name = "width_q")
+    val widthQ: Int?,
+    @Json(name = "width_s")
+    val widthS: Int?,
+    @Json(name = "width_sq")
+    val widthSq: Int?,
+    @Json(name = "width_t")
+    val widthT: Int?,
+    @Json(name = "width_z")
+    val widthZ: Int?
+){
+    fun getUrl(): String? {
+        val listUrls = listOf(urlC, urlL, urlM, urlN, urlO, urlQ, urlS, urlSq, urlT, urlZ).mapNotNull { it }.filter { it.isNotEmpty() }
+        return listUrls.firstOrNull()
+    }
+}
