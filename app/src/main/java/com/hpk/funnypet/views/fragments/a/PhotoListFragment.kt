@@ -1,15 +1,25 @@
 package com.hpk.funnypet.views.fragments.a
 
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.hpk.funnypet.databinding.FragmentPhotoListBinding
 import com.hpk.funnypet.extentions.observe
+import com.hpk.funnypet.utils.BundleKey
 import com.hpk.funnypet.views.adapters.PhotoPagingAdapter
 import com.hpk.funnypet.views.adapters.PhotoPagingAdapter.Companion.LOADING_ITEM
 import com.hpk.funnypet.views.base.BaseFragment
+import com.hpk.funnypet.views.fragments.b.PhotoDetailFragment
 import com.hpk.funnypet.views.others.LoadStateFooterAdapter
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PhotoListFragment : BaseFragment<FragmentPhotoListBinding>() {
@@ -27,11 +37,26 @@ class PhotoListFragment : BaseFragment<FragmentPhotoListBinding>() {
                     return if (adapter.getItemViewType(position) == LOADING_ITEM) 1 else 2
                 }
             }
+
             binding.rcvPhotos.layoutManager = layout
             rcvPhotos.adapter = adapter.withLoadStateFooter(LoadStateFooterAdapter())
+
+            refreshLayout.setOnRefreshListener {
+                adapter.refresh()
+            }
+
+            lifecycleScope.launch {
+                adapter.loadStateFlow.map { it.refresh }
+                    .distinctUntilChanged()
+                    .collect {
+                        if (it is LoadState.NotLoading) {
+                            refreshLayout.isRefreshing = false
+                        }
+                    }
+            }
         }
         with(viewModel) {
-            observe(photoListLD){
+            observe(photoListLD) {
                 it?.let {
                     adapter.submitData(lifecycle, it)
                 }
@@ -40,6 +65,12 @@ class PhotoListFragment : BaseFragment<FragmentPhotoListBinding>() {
 
         adapter.onItemClickListener = {
             Log.v("kkkkk", "photo: ${it.title}\n-url: ${it.getUrl()}")
+            transitFragment(
+                PhotoDetailFragment(),
+                args = Bundle().apply {
+                    putParcelable(BundleKey.KEY_ARG_PHOTO, it)
+                }
+            )
         }
     }
 

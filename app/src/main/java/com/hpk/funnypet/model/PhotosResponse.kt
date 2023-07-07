@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class PhotosResponse(
-    @Json(name = "photos")
+    @Json(name = "photoset")
     val photos: Photos?,
     @Json(name = "stat")
     val stat: String?

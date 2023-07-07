@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.hpk.funnypet.databinding.ItemCellPhotoBinding
 import com.hpk.funnypet.model.Photo
 import onAvoidDoubleClick

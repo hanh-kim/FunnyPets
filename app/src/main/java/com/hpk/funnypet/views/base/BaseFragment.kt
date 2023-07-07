@@ -37,7 +37,7 @@ abstract class BaseFragment<B : ViewDataBinding> :  Fragment(){
     }
     protected fun transitFragment(
         fragment: BaseFragment<*>,
-        @IdRes id: Int,
+        @IdRes id: Int= R.id.main_container,
         args: Bundle? = null,
         @AnimRes enterAnim: Int = R.anim.slide_in,
         @AnimRes exitAnim: Int = R.anim.fade_out,

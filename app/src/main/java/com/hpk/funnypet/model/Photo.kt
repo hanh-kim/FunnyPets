@@ -1,15 +1,18 @@
 package com.hpk.funnypet.model
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter = true)
+@Parcelize
 data class Photo(
-    @Json(name = "date_faved")
-    val dateFaved: String?,
-    @Json(name = "farm")
-    val farm: Int?,
+    @Json(name = "dateupload")
+    val dateupload: String?,
+    @Json(name = "description")
+    val description: Description?,
     @Json(name = "height_c")
     val heightC: Int?,
     @Json(name = "height_l")
@@ -32,22 +35,8 @@ data class Photo(
     val heightZ: Int?,
     @Json(name = "id")
     val id: String?,
-    @Json(name = "isfamily")
-    val isFamily: Int?,
-    @Json(name = "isfriend")
-    val isFriend: Int?,
-    @Json(name = "ispublic")
-    val isPublic: Int?,
-    @Json(name = "media")
-    val media: String?,
-    @Json(name = "media_status")
-    val mediaStatus: String?,
-    @Json(name = "owner")
-    val owner: String?,
-    @Json(name = "secret")
-    val secret: String?,
-    @Json(name = "server")
-    val server: String?,
+    @Json(name = "tags")
+    val tags: String?,
     @Json(name = "title")
     val title: String?,
     @Json(name = "url_c")
@@ -92,7 +81,7 @@ data class Photo(
     val widthT: Int?,
     @Json(name = "width_z")
     val widthZ: Int?
-){
+) : Parcelable {
     fun getUrl(): String? {
         val listUrls = listOf(urlC, urlL, urlM, urlN, urlO, urlQ, urlS, urlSq, urlT, urlZ).mapNotNull { it }.filter { it.isNotEmpty() }
         return listUrls.firstOrNull()
