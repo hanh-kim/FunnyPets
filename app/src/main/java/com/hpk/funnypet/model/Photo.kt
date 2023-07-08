@@ -83,7 +83,8 @@ data class Photo(
     val widthZ: Int?
 ) : Parcelable {
     fun getUrl(): String? {
-        val listUrls = listOf(urlC, urlL, urlM, urlN, urlO, urlQ, urlS, urlSq, urlT, urlZ).mapNotNull { it }.filter { it.isNotEmpty() }
-        return listUrls.firstOrNull()
+        val listUrls = listOf(urlSq, urlT, urlQ, urlS, urlN, urlM, urlZ, urlC, urlL, urlO).mapNotNull { it }
+                .filter { it.isNotEmpty() }
+        return listUrls.lastOrNull()
     }
 }

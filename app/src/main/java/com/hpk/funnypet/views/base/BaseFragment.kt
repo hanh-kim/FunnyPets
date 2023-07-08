@@ -1,10 +1,12 @@
 package com.hpk.funnypet.views.base
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ProgressBar
 import androidx.annotation.AnimRes
 import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
@@ -23,8 +25,8 @@ abstract class BaseFragment<B : ViewDataBinding> :  Fragment(){
     ): View? {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         val viewBinding = getFragmentBinding(inflater, container)
+        _binding = viewBinding
         initView(inflater, container, viewBinding)
-        this._binding = viewBinding
         return viewBinding.root
     }
     abstract fun initView(inflater: LayoutInflater, container: ViewGroup?, binding: B)
@@ -59,4 +61,20 @@ abstract class BaseFragment<B : ViewDataBinding> :  Fragment(){
         )?.add(id, fragment, fragment.javaClass.name)?.addToBackStack(fragment.TAG)?.commit()
     }
 
+    fun showProgressBar(progressBar: ProgressBar) {
+        progressBar.visibility = View.VISIBLE
+        (context as Activity).window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        )
+    }
+
+    fun hideProgressBar(progressBar: ProgressBar) {
+        progressBar.visibility = View.GONE
+        (context as Activity).window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    }
+
+    fun backPressed(){
+        activity?.onBackPressedDispatcher?.onBackPressed()
+    }
 }
