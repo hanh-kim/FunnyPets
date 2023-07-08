@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BackgroundProgressBar">
+        <item name="android:background">@drawable/bg_progress_bar</item>
+        <item name="android:paddingVertical">23dp</item>
+        <item name="android:paddingHorizontal">22dp</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+        <item name="android:indeterminateTint">@color/base_00</item>
+    </style>
+</resources>

@@ -8,6 +8,26 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_01">#EDEDED</color>
-    <color name="overlay_black">#34000000</color>
     <color name="gray">#DCD9D9</color>
+
+    <!-- Overlay Color -->
+    <color name="overlay_gray_01">#996B718F</color>
+    <color name="overlay_gray_02">#991E2130</color>
+    <color name="overlay_gray_03">#801E2130</color>
+    <color name="overlay_gray_04">#591E2130</color>
+    <color name="overlay_white">#99FFFFFF</color>
+    <color name="overlay_black">#99000000</color>
+
+    <!-- Base Color -->
+    <color name="transparent">#00000000</color>
+
+    <!-- Base Color -->
+    <color name="base_00">#FFFFFF</color>
+    <color name="base_gray_01">#F2F4FF</color>
+    <color name="base_gray_02">#E9EBF5</color>
+    <color name="base_gray_03">#C8CCE0</color>
+    <color name="base_gray_04">#9FA5C4</color>
+    <color name="base_gray_05">#6B718F</color>
+    <color name="base_gray_06">#1E2130</color>
+    <color name="base_gray_07">#FC1A1D29</color>
 </resources>

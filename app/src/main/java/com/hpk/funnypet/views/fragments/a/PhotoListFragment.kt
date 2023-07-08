@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.hpk.funnypet.databinding.FragmentPhotoListBinding
 import com.hpk.funnypet.extentions.observe
 import com.hpk.funnypet.utils.BundleKey
