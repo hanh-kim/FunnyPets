@@ -3,10 +3,14 @@ package com.hpk.funnypet.views.fragments.a
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.applySkeleton
+import com.hpk.funnypet.R
 import com.hpk.funnypet.databinding.FragmentPhotoListBinding
 import com.hpk.funnypet.extentions.observe
 import com.hpk.funnypet.utils.BundleKey
@@ -23,6 +27,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class PhotoListFragment : BaseFragment<FragmentPhotoListBinding>() {
     private val viewModel: PhotoListViewModel by viewModel()
     private val adapter = PhotoPagingAdapter()
+    private var viewSkeleton: Skeleton? = null
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initSkeleton()
+    }
     override fun initView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,6 +59,7 @@ class PhotoListFragment : BaseFragment<FragmentPhotoListBinding>() {
                     .collect {
                         if (it is LoadState.NotLoading) {
                             refreshLayout.isRefreshing = false
+                            showOrigin()
                             (binding.rcvPhotos.layoutManager as? GridLayoutManager)?.scrollToPositionWithOffset(
                                 0,
                                 0
@@ -80,5 +91,14 @@ class PhotoListFragment : BaseFragment<FragmentPhotoListBinding>() {
         container: ViewGroup?
     ): FragmentPhotoListBinding {
         return FragmentPhotoListBinding.inflate(inflater, container, false)
+    }
+
+    private fun initSkeleton(){
+        viewSkeleton = binding?.rcvPhotos?.applySkeleton(R.layout.item_cell_photo, 6)
+        viewSkeleton?.showSkeleton()
+    }
+
+    private fun showOrigin(){
+        viewSkeleton?.showOriginal()
     }
 }

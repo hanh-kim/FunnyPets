@@ -42,7 +42,13 @@ class PhotoPagingAdapter :
         return if (position == itemCount) PHOTO_ITEM else LOADING_ITEM
     }
 
-    override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {}
+
+    override fun onBindViewHolder(
+        holder: PhotoViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
         holder.bindData()
     }
 
