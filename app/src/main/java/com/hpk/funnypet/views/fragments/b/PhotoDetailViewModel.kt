@@ -37,6 +37,9 @@ class PhotoDetailViewModel(
             saveBitmapToLocalStorage(bitmap, name)
         }
     }
+    fun saveImage(url: String, name: String, description: String) {
+        FileUtil.downloadFile(url= url, fileName = name, desc = description)
+    }
 
     @Throws(IOException::class)
     private suspend fun saveBitmapToLocalStorage(bitmap: Bitmap, name: String) {

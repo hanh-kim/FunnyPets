@@ -16,7 +16,6 @@ class PhotosPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Photo> {
         val currentKey = params.key ?: 1
-        Log.v("kkkkk", "currentPage: $currentKey")
         return useCase.run(
             PhotosRequest(page = currentKey, limit = params.loadSize)
         ).fold(
@@ -25,7 +24,7 @@ class PhotosPagingSource(
             },
             onSuccess = {
                 LoadResult.Page(
-                    data = it.photos?.photo ?: listOf(),
+                    data = it.photos?.photo?.shuffled() ?: listOf(),
                     prevKey = null,
                     nextKey = (currentKey + 1).takeIf { _ ->
                         (it.photos?.photo?.size ?: 0) == params.loadSize

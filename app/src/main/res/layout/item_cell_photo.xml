@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="model"
             type="com.hpk.funnypet.model.Photo" />
@@ -14,7 +15,7 @@
         android:layout_height="wrap_content"
         android:foreground="?attr/selectableItemBackground"
         android:orientation="vertical"
-        app:cardCornerRadius="6dp"
+        app:cardCornerRadius="@dimen/general_corner_radius"
         app:cardElevation="1dp"
         app:cardUseCompatPadding="true">
 
@@ -24,15 +25,65 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
-                app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 app:cardUseCompatPadding="true"
+                app:layout_constraintTop_toTopOf="parent"
                 app:src_image_url="@{model.getUrl()}"
+                tools:layout_editor_absoluteX="0dp"
                 tools:src="@drawable/cell_image_error" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                style="@style/general_text_style_normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/overlay_gray_04"
+                android:ellipsize="marquee"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:maxLines="1"
+                android:padding="@dimen/dimen_size_6dp"
+                android:singleLine="true"
+                android:text="@{model.title}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Title" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dimen_size_4dp"
+                android:background="@drawable/bg_views_container"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ic_views"
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_white_eyes" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:text="@{model.getViewCount()}"
+                    style="@style/general_text_style_normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="2dp"
+                    android:gravity="center_vertical"
+                    tools:text="1000" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/general_text_style_normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/label_views" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -1,17 +1,15 @@
 package com.hpk.funnypet.utils
 
 import android.annotation.SuppressLint
+import android.app.DownloadManager
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Matrix
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import com.hpk.funnypet.AndroidApplication
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -21,9 +19,6 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.zip.ZipFile
-import kotlin.math.roundToInt
-import kotlin.math.sqrt
 
 object FileUtil {
 
@@ -76,11 +71,12 @@ object FileUtil {
     fun createFileFromBitmap(bitmap: Bitmap, fileName: String): File? {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         return try {
-            val fileDir: File = AndroidApplication.mInstance.getExternalFilesDir("image") ?: return null
-            if(!fileDir.exists()){
+            val fileDir: File =
+                AndroidApplication.mInstance.getExternalFilesDir("image") ?: return null
+            if (!fileDir.exists()) {
                 fileDir.mkdirs()
             }
-            val imageFile = File.createTempFile("JPEG_${timeStamp}_$fileName",".jpg", fileDir)
+            val imageFile = File.createTempFile("JPEG_${timeStamp}_$fileName", ".jpg", fileDir)
             val os = FileOutputStream(imageFile)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os)
             os.flush()
@@ -132,5 +128,20 @@ object FileUtil {
         } else {
             false
         }
+    }
+
+    fun downloadFile(url: String, fileName: String, desc: String) {
+        // fileName -> fileName with extension
+        val request = DownloadManager.Request(Uri.parse(url))
+            .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+            .setTitle(fileName)
+            .setDescription(desc)
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            .setAllowedOverMetered(true)
+            .setAllowedOverRoaming(false)
+            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+        val downloadManager =
+            AndroidApplication.mInstance.getSystemService(Context.DOWNLOAD_SERVICE) as? DownloadManager
+        downloadManager?.enqueue(request)
     }
 }

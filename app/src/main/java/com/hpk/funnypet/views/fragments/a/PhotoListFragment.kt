@@ -49,6 +49,10 @@ class PhotoListFragment : BaseFragment<FragmentPhotoListBinding>() {
                     .collect {
                         if (it is LoadState.NotLoading) {
                             refreshLayout.isRefreshing = false
+                            (binding.rcvPhotos.layoutManager as? GridLayoutManager)?.scrollToPositionWithOffset(
+                                0,
+                                0
+                            )
                         }
                     }
             }
@@ -62,7 +66,6 @@ class PhotoListFragment : BaseFragment<FragmentPhotoListBinding>() {
         }
 
         adapter.onItemClickListener = {
-            Log.v("kkkkk", "photo: ${it.title}\n-url: ${it.getUrl()}")
             transitFragment(
                 PhotoDetailFragment(),
                 args = Bundle().apply {

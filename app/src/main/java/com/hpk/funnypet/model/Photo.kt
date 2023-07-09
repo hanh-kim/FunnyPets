@@ -87,4 +87,12 @@ data class Photo(
                 .filter { it.isNotEmpty() }
         return listUrls.lastOrNull()
     }
+
+    fun getViewCount(): String {
+        val times = 155
+        val viewCount = views?.toLongOrNull()
+        return if (viewCount == null || viewCount == 0L) times.toString()  else {
+            viewCount.times(times).toString()
+        }
+    }
 }

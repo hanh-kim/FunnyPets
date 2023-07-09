@@ -3,6 +3,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.AlphaAnimation
@@ -28,6 +30,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
+import java.text.MessageFormat
 
 fun <K : Any, V : Any> BaseViewModel.initPagingLiveData(
     pageSize: Int = Constants.DEFAULT_PAGING_SIZE,
@@ -85,7 +88,7 @@ fun ImageView.loadImageUrl(url: String?, listener: () -> Unit = {}, onError: () 
 }
 
 fun Context.shareImage(bitmap: Bitmap) {
-    val imageFolder = File(cacheDir, "images")
+  /*  val imageFolder = File(cacheDir, "images")
     var uri: Uri? = null
     try {
         if (imageFolder.exists()) {
@@ -98,17 +101,24 @@ fun Context.shareImage(bitmap: Bitmap) {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
         outputStream.flush()
         outputStream.close()
-        uri = FileProvider.getUriForFile(this, getString(R.string.file_provider), file)
+        uri = Uri.parse(file.path)
     } catch (e: Exception) {
         println()
     }
+   */
+    val path: String = MediaStore.Images.Media.insertImage(
+        this.contentResolver,
+        bitmap, Constants.PHOTO_SHARE_NAME + System.currentTimeMillis(), null
+    )
+    Log.v("kkkkk","path: $path")
+    val mUri = Uri.parse(path)
 
     val intent = Intent(Intent.ACTION_SEND)
-    intent.putExtra(Intent.EXTRA_STREAM, uri)
+    intent.putExtra(Intent.EXTRA_STREAM, mUri)
     intent.putExtra(Intent.EXTRA_TEXT, "")
     intent.putExtra(Intent.EXTRA_SUBJECT, "")
-    intent.type = "image/jpeg"
-    startActivity(Intent.createChooser(intent, ""))
+    intent.type = "image/*"
+    startActivity(Intent.createChooser(intent, getString(R.string.share_image_title)))
 }
 
 fun View.visible() {

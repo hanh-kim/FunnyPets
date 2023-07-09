@@ -23,6 +23,7 @@ class PhotoPagingAdapter :
     inner class PhotoViewHolder(private val binding: ItemCellPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
+            binding.tvTitle.isSelected = true
             binding.root.onAvoidDoubleClick {
                 getItem(bindingAdapterPosition)?.let {
                     onItemClickListener.invoke(it)
@@ -36,6 +37,7 @@ class PhotoPagingAdapter :
             }
         }
     }
+
     override fun getItemViewType(position: Int): Int {
         return if (position == itemCount) PHOTO_ITEM else LOADING_ITEM
     }

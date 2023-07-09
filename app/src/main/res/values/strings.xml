@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">FunnyPet</string>
+    <string name="app_name">Funny Pet</string>
     <string name="btn_share">Share</string>
     <string name="btn_download">Download</string>
+    <string name="label_views">views</string>
     <string name="toast_download_successfully_message">Download successfully</string>
+    <string name="share_image_title">Share funny pet photo</string>
 </resources>
