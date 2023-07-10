@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.hpk.funnypet.databinding.ItemCellPhotoBinding
 import com.hpk.funnypet.model.Photo
+import gone
 import onAvoidDoubleClick
+import visible
 
-class PhotoPagingAdapter :
+class PhotoPagingAdapter(private val isHistoryMode: Boolean = false) :
     PagingDataAdapter<Photo, PhotoPagingAdapter.PhotoViewHolder>(diffCallBack) {
 
     companion object {
@@ -19,6 +21,7 @@ class PhotoPagingAdapter :
     }
 
     var onItemClickListener: (Photo) -> Unit = {}
+    var onRemoveItemClickListener: (Photo) -> Unit = {}
 
     inner class PhotoViewHolder(private val binding: ItemCellPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -28,6 +31,16 @@ class PhotoPagingAdapter :
                 getItem(bindingAdapterPosition)?.let {
                     onItemClickListener.invoke(it)
                 }
+            }
+            binding.btnRemove.onAvoidDoubleClick {
+                getItem(bindingAdapterPosition)?.let {
+                    onRemoveItemClickListener.invoke(it)
+                }
+            }
+            if (isHistoryMode){
+                binding.btnRemove.visible()
+            }else{
+                binding.btnRemove.gone()
             }
         }
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button_group_container">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_photos"
+            style="@style/general_text_style_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_selected"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/dimen_size_16dp"
+            android:paddingVertical="@dimen/dimen_size_6dp"
+            android:text="@string/btn_photos"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_history"
+            style="@style/general_text_style_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_unselect"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/dimen_size_16dp"
+            android:paddingVertical="@dimen/dimen_size_6dp"
+            android:text="@string/btn_history"
+            android:textColor="@color/base_gray_06" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>
