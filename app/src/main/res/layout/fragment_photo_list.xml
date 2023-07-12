@@ -15,11 +15,12 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/header_title"
                 style="@style/general_text_style_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_size_12dp"
-                android:layout_marginTop="@dimen/dimen_size_12dp"
+                android:layout_marginTop="@dimen/dimen_size_24dp"
                 android:textSize="24sp"
                 android:layout_marginBottom="@dimen/dimen_size_6dp"
                 android:textColor="@color/base_gray_06"
@@ -29,12 +30,12 @@
 
             <com.hpk.funnypet.views.customviews.GroupButtonView
                 android:layout_marginEnd="@dimen/dimen_size_6dp"
-                android:layout_marginTop="@dimen/dimen_size_12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/view_btn_group"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="@+id/header_title"
+                app:layout_constraintTop_toTopOf="@+id/header_title"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
