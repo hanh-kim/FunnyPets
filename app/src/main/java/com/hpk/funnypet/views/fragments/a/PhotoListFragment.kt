@@ -14,18 +14,18 @@ import com.faltenreich.skeletonlayout.applySkeleton
 import com.hpk.funnypet.R
 import com.hpk.funnypet.databinding.FragmentPhotoListBinding
 import com.hpk.funnypet.extentions.observe
+import com.hpk.funnypet.gone
 import com.hpk.funnypet.utils.BundleKey
 import com.hpk.funnypet.views.adapters.PhotoPagingAdapter
 import com.hpk.funnypet.views.adapters.PhotoPagingAdapter.Companion.LOADING_ITEM
 import com.hpk.funnypet.views.base.BaseFragment
 import com.hpk.funnypet.views.fragments.b.PhotoDetailFragment
 import com.hpk.funnypet.views.others.LoadStateFooterAdapter
-import gone
+import com.hpk.funnypet.visible
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import visible
 
 class PhotoListFragment : BaseFragment<FragmentPhotoListBinding>() {
     private val viewModel: PhotoListViewModel by viewModel()

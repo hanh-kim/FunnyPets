@@ -1,30 +1,25 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-android'
     id 'kotlin-parcelize'
-    id 'kotlin-kapt'
+    //id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
 }
 
 android {
     namespace 'com.hpk.funnypet'
-    compileSdk 33
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.hpk.funnypet"
         minSdk 28
-        targetSdk 33
+        targetSdk 36
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resValue "string", "file_provider", "${applicationId}.provider"
     }
-
-    buildFeatures {
-        dataBinding true // databinding
-        viewBinding true // viewbinding
-    }
-
 
     buildTypes {
         release {
@@ -32,67 +27,70 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
+
+    kotlin {
+        jvmToolchain(21)
+    }
+
+    buildFeatures {
+        //noinspection DataBindingWithoutKapt
+        dataBinding true
+        viewBinding true
+        buildConfig true
     }
 }
 
 dependencies {
+    // Core & UI Essentials
+    implementation 'androidx.core:core-ktx:1.18.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.13.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0'
+    implementation 'androidx.core:core-splashscreen:1.2.0'
+    implementation "androidx.security:security-crypto:1.1.0"
 
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    // Lifecycle
+    def lifecycle_version = "2.10.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
-    // DataBinding
-    kapt "androidx.databinding:databinding-compiler:$build_gradle_version"
-
-    // Glide
-    implementation 'com.github.bumptech.glide:glide:4.15.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
-
-    // Retrofit2
-    def retrofit_version = "2.9.0"
+    // Networking
+    def retrofit_version = "3.0.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.3.2'
 
-    // paging
-    def paging_version = "3.1.1"
-    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
-
-    // Gson
-    def gson_version = '2.10.1'
-    implementation "com.google.code.gson:gson:$gson_version"
-
-    // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
-
-    // LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
-
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
-    implementation 'com.faltenreich:skeletonlayout:4.0.0'
-
-    //koin
-    def koin_version = '3.4.0'
-    implementation "io.insert-koin:koin-android:$koin_version"
-
-    // Moshi
-    def moshi_version = '1.14.0'
+    // JSON Parsing (Moshi)
+    def moshi_version = '1.15.2'
     implementation "com.squareup.moshi:moshi:$moshi_version"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+    ksp "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+    
+    // Gson
+    implementation 'com.google.code.gson:gson:2.14.0'
 
-    // Splash
-    implementation 'androidx.core:core-splashscreen:1.0.1'
+    // Dependency Injection
+    implementation "io.insert-koin:koin-android:4.2.1"
+
+    // Image Loading
+    implementation 'com.github.bumptech.glide:glide:5.0.7'
+    //ksp 'com.github.bumptech.glide:compiler:5.0.7'
+
+    // Paging
+    implementation "androidx.paging:paging-runtime-ktx:3.4.2"
+
+    // UI Components
+    implementation 'com.faltenreich:skeletonlayout:6.0.0'
+
+    // Testing
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
 }

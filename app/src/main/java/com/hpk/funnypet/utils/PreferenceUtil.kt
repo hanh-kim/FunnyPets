@@ -1,7 +1,10 @@
 package com.hpk.funnypet.utils
 
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.hpk.funnypet.AndroidApplication
@@ -10,11 +13,21 @@ import java.lang.reflect.Type
 
 object PreferenceUtil {
 
-    private val preference: SharedPreferences =
-        AndroidApplication.mInstance.getSharedPreferences(
-            "funny_pet_shared_preference",
-            Context.MODE_PRIVATE
-        )
+//    private val preference: SharedPreferences =
+//        AndroidApplication.mInstance.getSharedPreferences(
+//            "funny_pet_shared_preference",
+//            Context.MODE_PRIVATE
+//        )
+
+    private val masterKey = MasterKey.Builder(AndroidApplication.mInstance).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
+
+    private val preference = EncryptedSharedPreferences.create(
+        AndroidApplication.mInstance,
+        "funny_pet_shared_preference",
+        masterKey,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
 
     private val preferenceEditor = preference.edit()
 

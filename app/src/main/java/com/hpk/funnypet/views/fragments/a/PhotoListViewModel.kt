@@ -2,12 +2,12 @@ package com.hpk.funnypet.views.fragments.a
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.hpk.funnypet.initPagingLiveData
 import com.hpk.funnypet.interactor.usecase.GetPhotosUseCase
 import com.hpk.funnypet.model.Photo
 import com.hpk.funnypet.pagingsource.PhotosPagingSource
 import com.hpk.funnypet.utils.PreferenceUtil
 import com.hpk.funnypet.views.base.BaseViewModel
-import initPagingLiveData
 
 class PhotoListViewModel(
     private val getPhotosUseCase: GetPhotosUseCase
